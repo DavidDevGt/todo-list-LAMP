@@ -32,5 +32,18 @@ $(document).ready(function() {
 });
 
 function loadTasks() {
-    
+    $.get('get_tasks.php', function(tasks) {
+        let template = '';
+        tasks.forEach(task => {
+            template += `
+                <li class="list-group-item">
+                    ${task.title}
+                    <button data-id="${task.id}" class="btn btn-danger btn-sm float-end delete-task">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+            `;
+        });
+        $('#taskList').html(template);
+    }, "json");
 }
